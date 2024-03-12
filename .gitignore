@@ -18,6 +18,7 @@ env2/
 .vscode/
 *.sublime-project
 *.sublime-workspace
+*.ipynb
 
 # Logs and Databases
 *.log
