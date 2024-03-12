@@ -9,7 +9,7 @@ To set up the project, follow these steps:
 1. Clone the repository:
 
     ```shell
-    git clone https://github.com/your-username/AdapterBERT.git
+    git clone https://github.com/nikhil-chigali/AdapterBERT.git
     ```
 
 2. Navigate to the project directory:
@@ -52,4 +52,4 @@ I would like to acknowledge the following repositories and papers used as refere
 
 - [bert_adapter](https://github.com/strawberrypie/bert_adapter.git) repo by [@strawberrypie](https://github.com/strawberrypie)
 - [transformers](https://github.com/huggingface/transformers.git) repo by [@huggingface](https://github.com/huggingface)
-- [Parameter-Efficient Transfer Learning for NLP](https://arxiv.org/abs/1902.00751), Houlsby [Google], 2019.
+- [Parameter-Efficient Transfer Learning for NLP](https://arxiv.org/abs/1902.00751), Houlsby [Google], ICML 2019.
