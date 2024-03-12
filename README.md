@@ -27,7 +27,7 @@ To set up the project, follow these steps:
 4. Set up the Poetry environment:
 
     ```shell
-    poetry install
+    poetry install --no-root
     ```
 
 ## Training
