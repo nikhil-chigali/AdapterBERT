@@ -7,16 +7,16 @@ ADAPTER_INIT_RANGE = 1e-2
 # Data
 DATASET_NAME = ("glue", "sst2")
 BATCH_SIZE = 32
-NUM_WORKERS = 4
+NUM_WORKERS = 2
 
 # Training
 SEED = 42
-NUM_EPOCHS = 1
+NUM_EPOCHS = 3
 LR = 2e-5
 WEIGHT_DECAY = 0.01
 ACCCELERATOR = "gpu"
-DEVICES = 0
+DEVICES = 1
 PRECISION = "16-mixed"
 
 # Inference
-CKPT_PATH = ""
+CKPT_PATH = "cache/logs/adapter-bert-sequence-classification/version_0/checkpoints/epoch=2-step=6314.ckpt"

@@ -56,27 +56,27 @@ def train():
     start = time.time()
     trainer.fit(model, datamodule=sst2)
     end = time.time()
-    print(f"Training took {(end-start)/60:.2f} minutes.")
+    print(f"\nTraining took {(end-start)/60:.2f} minutes.\n")
 
-    print("Best Model Path: ", trainer.checkpoint_callback.best_model_path)
-    print("Loading best model...")
+    print("\nBest Model Path: ", trainer.checkpoint_callback.best_model_path)
+    print("Loading best model...\n")
     model = AdapterBertForSequenceClassification.load_from_checkpoint(
         checkpoint_path=trainer.checkpoint_callback.best_model_path
     )
 
     train_results = trainer.validate(
         model, dataloaders=sst2.train_dataloader(), verbose=False
-    )
+    )[0]
     val_results = trainer.validate(
         model, dataloaders=sst2.val_dataloader(), verbose=False
-    )
+    )[0]
 
-    print("Train results:: ")
+    print("\nTrain results:: ")
     print(f"Train Loss: {train_results['val/loss']}")
     print(f"Train Accuracy: {train_results['val/acc']}")
     print(f"Train F1: {train_results['val/f1']}")
 
-    print("Validation results:: ")
+    print("\nValidation results:: ")
     print(f"Validation Loss: {val_results['val/loss']}")
     print(f"Validation Accuracy: {val_results['val/acc']}")
     print(f"Validation F1: {val_results['val/f1']}")
