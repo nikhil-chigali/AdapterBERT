@@ -1,39 +1,47 @@
-from typing import Tuple
-from transformers import AutoTokenizer, BertModel, AutoModelForSequenceClassification
+import os
+from src.model import AdapterBertForSequenceClassification
+from src.data import SequenceClassificationDataModule
+from constants import (
+    MODEL_NAME,
+    DATASET_NAME,
+    BATCH_SIZE,
+    NUM_WORKERS,
+    CKPT_PATH,
+)
 
 
 def inference_sequence_classification(
-    text: str, model: BertModel, tokenizer: AutoTokenizer, class_labels: Tuple[str, ...]
+    text: str,
 ) -> str:
-    """
-    Perform Sequene classification inference on a text using a BERT model.
-    :param text: The text to perform inference on.
-    :param model: The BERT model.
-    :param tokenizer: The tokenizer.
-    :param class_labels: The class labels.
-    :return: The predicted class.
-    """
+    model = AdapterBertForSequenceClassification.load_from_checkpoint(
+        checkpoint_path=CKPT_PATH
+    )
     device = model.device
-    encoding = tokenizer(text, return_tensors="pt")
+    sst2 = SequenceClassificationDataModule(
+        model_name=MODEL_NAME,
+        dataset_name=DATASET_NAME,
+        batch_size=BATCH_SIZE,
+        num_workers=NUM_WORKERS,
+    )
+    sst2.setup()
+    encoding = sst2.tokenizer(
+        text,
+        return_tensors="pt",
+        return_attention_mask=True,
+        return_token_type_ids=False,
+    )
     encoding = {k: v.to(device) for k, v in encoding.items()}
-    output = model(**encoding)
+    output = model.model(**encoding)
     predicted_class_idx = output.logits.argmax(dim=1)
-    return class_labels[predicted_class_idx]
+    return sst2.classes[predicted_class_idx]
 
 
 if __name__ == "__main__":
-    MODEL_NAME = "cache\\model\\adapter-bert-sentiment-analysis\\"
-    CLASS_LABELS = ("negative", "positive")
+    print("Ensure that the model checkpoint is present at", CKPT_PATH)
+    if not os.path.exists(CKPT_PATH):
+        raise FileNotFoundError(f"Model checkpoint not found at {CKPT_PATH}")
+
     query = input("Enter a sentence: ")
-    _tokenizer = AutoTokenizer.from_pretrained(
-        "bert-base-uncased",
-        truncation=True,
-        padding=True,
-        use_fast=True,
-        cache_dir="cache\\tokenizer",
-    )
-    _model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
-    prediction = inference_sequence_classification(
-        query, _model, _tokenizer, CLASS_LABELS
-    )
-    print(prediction)
+
+    prediction = inference_sequence_classification(query)
+    print("Prediction:", prediction)

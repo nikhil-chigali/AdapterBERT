@@ -24,6 +24,7 @@ env2/
 *.log
 *.sqlite3
 *.db
+lightning_logs/
 
 # Testing
 .coverage
