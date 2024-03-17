@@ -32,15 +32,19 @@ To set up the project, follow these steps:
 
 ## Training
 
-To train the model, run the `train.py` script with the desired command-line arguments. Here's an example command:
+Update the training hyperparameters and settings as needed in the `constants.py` file.
+
+To train the model, run the `train.py` script. Here's an example command:
 
 ```shell
-python train.py --n_epochs 2 --batch_size 8 --lr 0.00002 --wt_decay 0.01 --adapter_init_range 0.01 --adapter_dim 64
+python train.py
 ```
 
 ## Prediction
 
-To make predictions using the trained model, run the `predict.py` script:
+Before running any inferences, update the path to the model checkpoint `CKPT_PATH` in `constants.py`
+
+To make predictions on custom input prompt using the trained model, run the `predict.py` script:
 
 ```shell
 python predict.py

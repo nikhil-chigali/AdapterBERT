@@ -19,4 +19,4 @@ DEVICES = 1
 PRECISION = "16-mixed"
 
 # Inference
-CKPT_PATH = "cache/logs/adapter-bert-sequence-classification/version_0/checkpoints/epoch=2-step=6314.ckpt"
+CKPT_PATH = ""
