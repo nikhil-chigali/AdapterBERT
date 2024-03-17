@@ -15,7 +15,7 @@ NUM_EPOCHS = 1
 LR = 2e-5
 WEIGHT_DECAY = 0.01
 ACCCELERATOR = "gpu"
-DEVICES = 1
+DEVICES = 0
 PRECISION = "16-mixed"
 
 # Inference
